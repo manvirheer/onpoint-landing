@@ -1,15 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap');
 @import "tailwindcss";
+
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-host-grotesk: 'Host Grotesk', sans-serif;
+  --color-pr: #DC0411;      /* Primary color */
+  --color-sec: #f6f4f2;      /* Secondary color */
+  --color-ter: #F8D121;      /* Tertiary color */
 }
 
 @media (prefers-color-scheme: dark) {
