@@ -1,6 +1,6 @@
 "use client";
 
-import { FOOTER_INFO, SITE_CONFIG } from '@/config/content'
+import { FOOTER_INFO } from '@/config/content'
 import { useEffect, useState } from 'react';
 
 export default function Footer() {

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { NAV_LINKS, SITE_CONFIG } from '@/config/content';
+import { NAV_LINKS } from '@/config/content';
 
 const Header = () => {
   const [mounted, setMounted] = useState(false);

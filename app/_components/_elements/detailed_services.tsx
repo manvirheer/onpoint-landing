@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import { SERVICES } from "@/config/content";
 import { ServiceProps } from "../_types/service";
-import Link from "next/link";
 import Image from "next/image";
 
 export default function DetailedServicesSection() {

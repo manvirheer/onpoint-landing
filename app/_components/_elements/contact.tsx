@@ -26,6 +26,7 @@ export default function ContactUsSection() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    // Reset submit status when user starts typing again
     if (submitStatus) setSubmitStatus(null);
   };
 
@@ -40,35 +41,14 @@ export default function ContactUsSection() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Construct FormData with the necessary hidden fields from Web3Forms
-    const data = new FormData();
-    data.append("access_key", SITE_CONFIG.web3formsAccessKey);
-    data.append("subject", "New Submission from Web3Forms");
-    data.append("from_name", SITE_CONFIG.companyName);
-    // Optional hidden fields can be added here:
-    // data.append("ccemail", "partner@example.com");
-    // data.append("redirect", "https://web3forms.com/success");
-
-    // Append user form data
-    data.append("name", formData.name);
-    data.append("email", formData.email);
-    data.append("message", formData.message);
-
+    
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: data,
-      });
-      if (response.ok) {
-        console.log("Form submitted successfully");
-        setSubmitStatus("success");
-        // Optionally reset the form:
-        // setFormData({ name: "", email: "", message: "" });
-      } else {
-        console.error("Error submitting form");
-        setSubmitStatus("error");
-      }
+      // Simulate API call with timeout
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log("Form submitted:", formData);
+      setSubmitStatus("success");
+      // Optional: Reset form after successful submission
+      // setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("Error submitting form:", error);
       setSubmitStatus("error");
@@ -112,6 +92,7 @@ export default function ContactUsSection() {
                 referrerPolicy="no-referrer-when-downgrade"
                 className="w-full h-3/5 lg:h-3/5"
               ></iframe>
+              
               {/* Contact Info Card */}
               <div className="p-6 border-t border-gray-100">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -139,13 +120,9 @@ export default function ContactUsSection() {
               onSubmit={handleSubmit} 
               className="bg-white p-8 rounded-lg shadow-lg h-full transform transition-all duration-300 hover:shadow-xl"
             >
+
+<input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
               <h3 className="text-2xl font-bold text-gray-800 mb-6">Send Us a Message</h3>
-              
-              {/* Hidden Inputs for Web3Forms */}
-              <input type="hidden" name="access_key" value={SITE_CONFIG.web3formsAccessKey} />
-              <input type="hidden" name="subject" value="New Submission from Web3Forms" />
-              <input type="hidden" name="from_name" value={SITE_CONFIG.companyName} />
-              {/* Optional: add more hidden inputs as needed */}
               
               {/* Success/Error Messages */}
               {submitStatus === "success" && (
