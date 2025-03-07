@@ -46,7 +46,7 @@ export const SERVICES = [
     detailed:
       "We ensure the safe movement of vehicles and pedestrians by deploying certified traffic controllers and state-of-the-art safety equipment. Our team coordinates with local authorities to minimize disruption and maintain efficient traffic flow during high-demand periods.",
     image: "/images/traffic-1.jpg",
-    link: "/services/traffic-control",
+    link: "/services",
     features: [
       "Certified traffic controllers",
       "Real-time traffic monitoring",
@@ -62,7 +62,7 @@ export const SERVICES = [
     detailed:
       "We develop customized traffic management strategies that include detailed layouts, risk assessments, and contingency measures. Our plans are designed to meet local safety regulations and ensure smooth operations, keeping your project on schedule and safe.",
     image: "/images/traffic-sign-outdoors.jpg",
-    link: "/services/management-plans",
+    link: "/services",
     features: [
       "Customized traffic flow designs",
       "In-depth risk assessments",
@@ -78,7 +78,7 @@ export const SERVICES = [
     detailed:
       "Our rental service provides access to the latest safety equipment maintained to the highest standards. Whether you need short-term or long-term solutions, our flexible rental options help you manage costs while ensuring reliable performance on your site.",
     image: "/images/traffic-2.jpg",
-    link: "/services/equipment-rental",
+    link: "/services",
     features: [
       "Latest generation safety equipment",
       "Flexible rental periods",
@@ -94,7 +94,7 @@ export const SERVICES = [
     detailed:
       "Our training courses combine theoretical knowledge with hands-on practice, preparing participants for high-risk environments. As a WorkSafeBC approved certifier, our programs ensure that trainees are fully equipped with the latest safety protocols and industry best practices.",
     image: "/images/traffic-2.jpg",
-    link: "/services/training",
+    link: "/services",
     features: [
       "Accredited training programs",
       "Experienced instructors",

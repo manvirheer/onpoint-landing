@@ -1,6 +1,6 @@
 import '../globals.css';
 import type { ReactNode } from 'react';
-import MainLayout from '../_components/_layouts/main_layout';
+import MainLayout from '../layout';
 import Header from '../_components/_elements/main_header';
 import ServiceList from '../_components/_elements/service_list';
 import HeroSection from '../_components/_elements/hero_section';
@@ -14,12 +14,8 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body>
-        <MainLayout>
+        <>
           <ContactForm />
-        </MainLayout>
-      </body>
-    </html>
+        </>
   );
 }

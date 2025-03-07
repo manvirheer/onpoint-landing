@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import Header from '../_elements/main_header';
-import Footer from '../_elements/main_footer';
+import Header from './_components/_elements/main_header';
+import Footer from './_components/_elements/main_footer';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     setMounted(true);
   }, []);
 
-  // Don't render until client-side
+  // Optionally, delay render until client-side code is ready.
   if (!mounted) return null;
 
   return (
