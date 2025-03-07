@@ -5,4 +5,6 @@ export interface ServiceProps {
     description: string;
     image: string;
     link: string;
+    detailed: string;
+    features: string[];
   }

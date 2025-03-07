@@ -4,6 +4,7 @@ import MainLayout from './_components/_layouts/main_layout';
 import Header from './_components/_elements/main_header';
 import ServiceList from './_components/_elements/service_list';
 import HeroSection from './_components/_elements/hero_section';
+import MapSection from './_components/_elements/map_section';
 
 export const metadata = {
   title: 'Traffic Control Service Provider',
@@ -14,7 +15,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <MainLayout><HeroSection/><ServiceList/></MainLayout>
+        <MainLayout>
+          <HeroSection />
+          <ServiceList />
+          <MapSection />
+        </MainLayout>
       </body>
     </html>
   );
