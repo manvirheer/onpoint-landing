@@ -173,7 +173,7 @@ export const SERVICES = [
     ],
   },
   {
-    category: "Advanced Traffic Control Training",
+    category: "ADVANCED TRAFFIC CONTROL SOLUTIONS",
     categoryDescription:
       "Cost-effective rental solutions for high-quality traffic control equipment tailored to your project needs.",
     services: [
