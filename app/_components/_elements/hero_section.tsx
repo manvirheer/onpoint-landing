@@ -44,9 +44,7 @@ export default function HeroSection() {
               {SITE_CONFIG.companySlogan}
             </p>
             <p className="mb-6 text-gray-100">
-              We provide certified and reliable services for all of your traffic
-              management needs, ensuring the highest standards of safety and
-              efficiency for your projects.
+              {SITE_CONFIG.heroSectionDescription}
             </p>
             <a
               href="/contact"

@@ -2,7 +2,7 @@
 
 import React from "react";
 import ServiceCard from "./service_card";
-import { SERVICES } from "@/config/content";
+import { SERVICES } from "@/config/content"; 
 import { ServiceProps } from "../_types/service";
 
 export default function ServicesSection() {
@@ -26,11 +26,21 @@ export default function ServicesSection() {
           <div className="w-4/5 h-1 bg-yellow-500 mx-auto mb-6"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {SERVICES.map((service: ServiceProps) => (
-            <ServiceCard key={service.id} service={service} />
-          ))}
-        </div>
+        {SERVICES.map((category) => (
+          <div key={category.category} className="mb-12">
+            <div className="text-center mb-6">
+              <h3 className="text-3xl font-bold text-black">
+                {category.category}
+              </h3>
+              <p className="text-gray-600">{category.categoryDescription}</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+              {category.services.map((service: ServiceProps) => (
+                <ServiceCard key={service.id} service={service} />
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

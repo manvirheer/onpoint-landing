@@ -1,35 +1,56 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { ServiceProps } from "../_types/service";
 
 export default function ServiceCard({ service }: { service: ServiceProps }) {
-  const { title, description, image, link } = service;
+  const { title, image, description, detailed, features } = service;
+  const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl h-full flex flex-col md:flex-row">
-      {/* Image container - takes full width on mobile, 40% on md screens */}
-      <div className="h-3/4 md:h-auto md:w-3/5 overflow-hidden relative">
+    <div className="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl flex flex-col text-gray-800">
+      {/* Image and Title Header */}
+      <div className="relative">
         <img 
           src={image} 
           alt={title} 
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+          className="w-full h-48 object-cover"
         />
-        {/* Overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+          <h3 className="text-2xl font-bold text-white p-6">{title}</h3>
+        </div>
       </div>
       
-      {/* Content container */}
-      <div className="p-6 flex flex-col flex-grow md:w-3/5 justify-center">
-        <div className="border-l-4 border-yellow-500 pl-3 mb-4">
-          <h3 className="text-xl font-bold text-gray-900">{title}</h3>
-        </div>
-        <p className="text-gray-600 mb-6">{description}</p>
+      {/* Content */}
+      <div className="p-6 flex-grow text-gray-800">
+        <p className="text-gray-600">{description}</p>
+        <button 
+          onClick={() => setExpanded(!expanded)}
+          className="mt-4 text-yellow-500 font-medium"
+        >
+          {expanded ? "Show Less" : "Read More"}
+        </button>
+        {expanded && (
+          <div className="mt-4">
+            <p className="text-gray-600">{detailed}</p>
+            {features && (
+              <ul className="list-disc list-inside text-gray-600 ml-2 mt-2">
+                {features.map((point, idx) => (
+                  <li key={idx}>{point}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
+      </div>
+      
+      {/* Call to Action */}
+      <div className="p-6 pt-0">
         <a 
-          href={link}
+          href={`services#service-${service.id}`}
           className="inline-flex items-center text-yellow-500 font-medium hover:text-yellow-600 transition-colors group"
         >
-          <span>Learn more</span>
+          <span>Learn more about {title}</span>
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
             className="h-5 w-5 ml-1 transform transition-transform group-hover:translate-x-1" 

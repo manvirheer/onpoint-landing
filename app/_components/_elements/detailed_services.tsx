@@ -1,28 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { SERVICES } from "@/config/content";
-import { ServiceProps } from "../_types/service";
+import React from "react";
 import Image from "next/image";
+import { SERVICES } from "@/config/content";
 
-export default function DetailedServicesSection() {
-  const parallaxRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (parallaxRef.current) {
-        parallaxRef.current.style.transform = `translateY(${window.scrollY * 0.05}px)`;
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
+export default function ServicesSection() {
   return (
-    <section className="relative py-16 bg-gray-50 overflow-hidden text-gray-800">
-      {/* Parallax Background Pattern */}
+    <section className="relative py-16 bg-gray-50">
+      {/* Background Pattern */}
       <div
-        ref={parallaxRef}
         className="absolute inset-0 z-0 opacity-10"
         style={{
           backgroundImage:
@@ -31,65 +17,77 @@ export default function DetailedServicesSection() {
         }}
       ></div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 mb-2">Our Services</h2>
-          <div className="w-24 h-1 bg-yellow-500 mx-auto mb-4"></div>
-          <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-            Explore our comprehensive range of traffic management services designed to keep your projects running safely and efficiently.
-          </p>
-
+      <div className="container mx-auto px-4 relative z-10 text-gray-800">
+        <div className="text-center mb-16">
+          <h2 className="text-5xl text-black font-host-grotesk font-semibold mb-4">
+            Services
+          </h2>
+          <div className="w-60 h-1 bg-yellow-500 mx-auto mb-6"></div>
         </div>
 
-        <div className="space-y-12">
-          {SERVICES.map((service: ServiceProps, index: number) => (
-            <div
-              key={service.id}
-              className={`flex flex-col lg:flex-row gap-8 items-center bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl ${index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                }`}
-            >
-              {/* Image Section */}
-              <div className="w-full lg:w-2/5 h-auto lg:h-96 relative">
-                <div className="w-full h-full relative overflow-hidden">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover transform transition-transform duration-500 hover:scale-105"
-                  />
+        {SERVICES.map((category) => {
+          const services = category.services;
+          // Use 1 column for a single service, otherwise 2 columns
+          const gridCols = services.length === 1 ? "grid-cols-1" : "grid-cols-2";
 
-                </div>
+          return (
+            <div key={category.category} className="mb-24 last:mb-8">
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-bold text-black mb-4">
+                  {category.category}
+                </h3>
+                <p className="text-gray-700 max-w-3xl mx-auto">
+                  {category.categoryDescription}
+                </p>
               </div>
 
-              {/* Content Section */}
-              <div className="w-full lg:w-3/5 p-8">
-                <div className={`w-12 h-1 bg-yellow-500 mb-4 ${index % 2 === 1 ? "lg:ml-auto" : ""}`}></div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-3">{service.title}</h3>
-                <p className="text-gray-700 mb-4">{service.description}</p>
-                <p className="text-gray-600 mb-4">{service.detailed}</p>
+              <div className={`grid ${gridCols} gap-8`}>
+                {services.map((service, index) => (
+                  <div
+                    id={`service-${service.id}`}
+                    key={service.id}
+                    // If exactly 3 services, span the first item across both columns
+                    className={`border border-gray-200 rounded-lg p-6 transition-shadow hover:shadow-lg ${
+                      services.length === 3 && index === 0 ? "col-span-2" : ""
+                    }`}
+                  >
+                    <div className="relative w-full h-84 mb-6 overflow-hidden rounded-lg group">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
+                    <h4 className="text-2xl font-bold mb-4">{service.title}</h4>
+                    <p className="mb-6 text-gray-800">{service.description}</p>
 
-                {/* Features List */}
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-gray-800 mb-2">Key Features:</h4>
-                  <ul className="space-y-2">
-                    {service.features?.map((feature: string, i: number) => (
-                      <li key={i} className="flex items-start">
-                        <svg className="w-5 h-5 text-yellow-500 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path
-                            fillRule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clipRule="evenodd"
-                          ></path>
-                        </svg>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                    {/* Detailed section if available */}
+                    {service.detailed && service.detailed.length > 0 && (
+                      <div className="mb-6 space-y-2">
+                        {service.detailed.map((detail, idx) => (
+                          <p key={idx} className="text-gray-700">
+                            {detail}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {service.features?.map((feature, idx) => (
+                        <li key={idx} className="flex items-start">
+                          <span className="mr-2 text-yellow-500 font-bold">✓</span>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </section>
   );
