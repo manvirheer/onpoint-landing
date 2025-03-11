@@ -1,11 +1,26 @@
-// _types/service.ts
-
-export interface ServiceProps {
-  id: number;
-  title: string;
+export interface Service {
+  id: number | string;
   image: string;
-  description?: string;
-  detailed?: string[]; 
+  title: string;
+  description: string;
+  detailed?: string[];
   features?: string[];
-  link: string;
+}
+
+export interface Category {
+  category: string;
+  categoryDescription: string;
+  services: Service[];
+}
+
+export interface ServiceNavProps {
+  activeCategory: string;
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  scrollToCategory: (categoryId: string) => void;
+  services: Category[];
+}
+
+export interface ServicesContentProps {
+  services: Category[];
 }

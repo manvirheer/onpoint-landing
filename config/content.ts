@@ -2,8 +2,8 @@
 "use client";
 
 export const SITE_CONFIG = {
-  companyName: "Trustworthy Traffic Control",
-  companySlogan: "Safety is our top priority",
+  companyName: "On Point Traffic Services LTD",
+  companySlogan: "Pointing you in the right direction",
   // Map & Contact Section Details
   address: "13049 76 Ave Unit 201\nSurrey, BC V3W 2V7\nCanada",
   phone: "+1 (250) 228-5371",
@@ -128,7 +128,7 @@ export const SERVICES = [
         ],
       },
       {
-        id: 14,
+        id: 5,
         title: "Road Permits",
         description:
           "Drafting, submitting, and tracking road use permits to ensure full regulatory compliance.",
@@ -152,7 +152,7 @@ export const SERVICES = [
       "WorkSafeBC approved training programs for Traffic Control People (TCP) and advanced Lane Closure Technicians (LCT) to ensure safety and operational excellence.",
     services: [
       {
-        id: 5,
+        id: 6,
         title: "Traffic Control People (TCP)",
         description:
           "WorkSafeBC approved training for TCPs and advanced training for LCTs.",
@@ -178,7 +178,7 @@ export const SERVICES = [
       "Cost-effective rental solutions for high-quality traffic control equipment tailored to your project needs.",
     services: [
       {
-        id: 6,
+        id: 7,
         title: "Equipment Rental",
         description:
           "Cost-effective rental of high-quality traffic control equipment for any project.",
