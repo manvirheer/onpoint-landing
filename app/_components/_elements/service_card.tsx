@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { ServiceProps } from "../_types/service";
+import { Service } from "../_types/service";
 
-export default function ServiceCard({ service }: { service: ServiceProps }) {
+export default function ServiceCard({ service }: { service: Service }) {
   const { title, description, image, link } = service;
 
   return (

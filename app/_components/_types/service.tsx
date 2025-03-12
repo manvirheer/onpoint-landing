@@ -5,6 +5,7 @@ export interface Service {
   description: string;
   detailed?: string[];
   features?: string[];
+  link?: string;
 }
 
 export interface Category {

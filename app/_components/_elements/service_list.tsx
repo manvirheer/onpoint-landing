@@ -3,7 +3,7 @@
 import React from "react";
 import ServiceCard from "./service_card";
 import { SERVICES } from "@/config/content";
-import { ServiceProps } from "../_types/service";
+import { Service } from "../_types/service";
 
 export default function ServicesSection() {
   return (
@@ -34,7 +34,7 @@ export default function ServicesSection() {
               </h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-8 justify-items-center">
-              {category.services.map((service: ServiceProps) => (
+              {category.services.map((service: Service) => (
                 <div
                   id={`service-${service.id}`}
                   key={service.id}

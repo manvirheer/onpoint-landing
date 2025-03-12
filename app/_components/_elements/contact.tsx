@@ -26,7 +26,6 @@ export default function ContactUsSection() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // Reset submit status when user starts typing again
     if (submitStatus) setSubmitStatus(null);
   };
 
@@ -41,14 +40,33 @@ export default function ContactUsSection() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
+    // Prepare payload including the access key
+    const payload = {
+      access_key: "c6cf84b4-a3fa-4334-9f93-f2cace46bfa4",
+      ...formData,
+    };
+
     try {
-      // Simulate API call with timeout
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log("Form submitted:", formData);
-      setSubmitStatus("success");
-      // Optional: Reset form after successful submission
-      // setFormData({ name: "", email: "", message: "" });
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json();
+
+      if (response.status === 200) {
+        console.log("Form submitted:", data);
+        setSubmitStatus("success");
+        // Reset form after successful submission
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        console.error("Submission error:", data);
+        setSubmitStatus("error");
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
       setSubmitStatus("error");
@@ -92,20 +110,19 @@ export default function ContactUsSection() {
                 referrerPolicy="no-referrer-when-downgrade"
                 className="w-full h-3/5 lg:h-3/5"
               ></iframe>
-              
+
               {/* Contact Info Card */}
               <div className="p-6 border-t border-gray-100">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">Our Location</h3>
-                    <p className="text-gray-600">
-                      {SITE_CONFIG.address}
-                    </p>
+                    <p className="text-gray-600">{SITE_CONFIG.address}</p>
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">Contact Details</h3>
                     <p className="text-gray-600">
-                      Phone: {SITE_CONFIG.phone}<br />
+                      Phone: {SITE_CONFIG.phone}
+                      <br />
                       Email: {SITE_CONFIG.email}
                     </p>
                   </div>
@@ -116,27 +133,27 @@ export default function ContactUsSection() {
 
           {/* Right column: Contact Form */}
           <div className="w-full lg:w-1/2">
-            <form 
-              onSubmit={handleSubmit} 
+            <form
+              onSubmit={handleSubmit}
               className="bg-white p-8 rounded-lg shadow-lg h-full transform transition-all duration-300 hover:shadow-xl"
             >
-
-<input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+              {/* Hidden input can be kept for legacy or fallback purposes */}
+              <input type="hidden" name="access_key" value="c6cf84b4-a3fa-4334-9f93-f2cace46bfa4" />
               <h3 className="text-2xl font-bold text-gray-800 mb-6">Send Us a Message</h3>
-              
+
               {/* Success/Error Messages */}
               {submitStatus === "success" && (
                 <div className="mb-6 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded">
                   Thank you for your message! We'll be in touch soon.
                 </div>
               )}
-              
+
               {submitStatus === "error" && (
                 <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded">
                   There was a problem sending your message. Please try again.
                 </div>
               )}
-              
+
               <div className="mb-5">
                 <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
                   Name
@@ -147,14 +164,16 @@ export default function ContactUsSection() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  onFocus={() => handleFocus('name')}
+                  onFocus={() => handleFocus("name")}
                   onBlur={handleBlur}
-                  className={`w-full border ${focusedField === 'name' ? 'border-yellow-500 ring-1 ring-yellow-500' : 'border-gray-300'} p-3 rounded-md transition-all duration-200`}
+                  className={`w-full border ${
+                    focusedField === "name" ? "border-yellow-500 ring-1 ring-yellow-500" : "border-gray-300"
+                  } p-3 rounded-md transition-all duration-200`}
                   placeholder="Your name"
                   required
                 />
               </div>
-              
+
               <div className="mb-5">
                 <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
                   Email
@@ -165,14 +184,16 @@ export default function ContactUsSection() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  onFocus={() => handleFocus('email')}
+                  onFocus={() => handleFocus("email")}
                   onBlur={handleBlur}
-                  className={`w-full border ${focusedField === 'email' ? 'border-yellow-500 ring-1 ring-yellow-500' : 'border-gray-300'} p-3 rounded-md transition-all duration-200`}
+                  className={`w-full border ${
+                    focusedField === "email" ? "border-yellow-500 ring-1 ring-yellow-500" : "border-gray-300"
+                  } p-3 rounded-md transition-all duration-200`}
                   placeholder="your.email@example.com"
                   required
                 />
               </div>
-              
+
               <div className="mb-6">
                 <label htmlFor="message" className="block text-gray-700 font-medium mb-2">
                   Message
@@ -183,28 +204,50 @@ export default function ContactUsSection() {
                   rows={5}
                   value={formData.message}
                   onChange={handleChange}
-                  onFocus={() => handleFocus('message')}
+                  onFocus={() => handleFocus("message")}
                   onBlur={handleBlur}
-                  className={`w-full border ${focusedField === 'message' ? 'border-yellow-500 ring-1 ring-yellow-500' : 'border-gray-300'} p-3 rounded-md transition-all duration-200`}
+                  className={`w-full border ${
+                    focusedField === "message" ? "border-yellow-500 ring-1 ring-yellow-500" : "border-gray-300"
+                  } p-3 rounded-md transition-all duration-200`}
                   placeholder="How can we help you?"
                   required
                 ></textarea>
               </div>
-              
+
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full ${isSubmitting ? 'bg-yellow-400' : 'bg-yellow-500 hover:bg-yellow-400'} text-black font-semibold py-3 px-6 rounded-md transition-all duration-300 transform hover:-translate-y-1 flex justify-center items-center`}
+                className={`w-full ${
+                  isSubmitting ? "bg-yellow-400" : "bg-yellow-500 hover:bg-yellow-400"
+                } text-black font-semibold py-3 px-6 rounded-md transition-all duration-300 transform hover:-translate-y-1 flex justify-center items-center`}
               >
                 {isSubmitting ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-black"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                     Sending...
                   </>
-                ) : "Send Message"}
+                ) : (
+                  "Send Message"
+                )}
               </button>
             </form>
           </div>
